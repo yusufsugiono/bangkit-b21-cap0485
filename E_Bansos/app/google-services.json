@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "129751627373",
+    "project_id": "ebansos",
+    "storage_bucket": "ebansos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129751627373:android:fd633df8529cff36e7b164",
+        "android_client_info": {
+          "package_name": "com.capstone.e_bansos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129751627373-u83d6006g3ei25ujm9e0bs5jsirha3o8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.e_bansos",
+            "certificate_hash": "d82600994985871ae4ebad721252673d046f33e9"
+          }
+        },
+        {
+          "client_id": "129751627373-3loec5ip71m2cufnohusqfqoepj0i3q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI_i9FsH6643PbcIoaYygnfW-jbH4CN_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129751627373-3loec5ip71m2cufnohusqfqoepj0i3q0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
