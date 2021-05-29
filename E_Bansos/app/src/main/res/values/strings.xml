@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">E_Bansos</string>
+
+    <string-array name="data_name">
+        <item>Kemang</item>
+        <item>Sidoarjo</item>
+        <item>Bangkalan</item>
+        <item>Kamal</item>
+        <item>Krian</item>
+        <item>Wonoayu</item>
+        <item>Surabaya</item>
+        <item>Lamongan</item>
+        <item>Telang</item>
+        <item>Pucang</item>
+    </string-array>
+    <string-array name="data_description">
+
+        <item>129</item>
+        <item>122</item>
+        <item>12</item>
+        <item>2</item>
+        <item>20</item>
+        <item>130</item>
+        <item>30</item>
+        <item>50</item>
+        <item>129</item>
+        <item>129</item>
+
+    </string-array>
+    <string-array name="data_photo">
+        <item>12/02/2021</item>
+        <item>4/02/2021</item>
+        <item>7/01/2021</item>
+        <item>3/02/2021</item>
+        <item>2/02/2021</item>
+        <item>1/01/2021</item>
+        <item>9/02/2021</item>
+        <item>11/02/2021</item>
+        <item>23/02/2021</item>
+        <item>31/02/2021</item>
+
+    </string-array>
+
 </resources>
