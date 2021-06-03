@@ -1,0 +1,17 @@
+{
+  "name": "covid-forecasting-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js"
+  },
+  "author": "Yusuf Sugiono C3322970 (B21-CAP0485)",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
