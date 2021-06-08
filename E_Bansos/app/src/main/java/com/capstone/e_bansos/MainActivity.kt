@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ItemRate2Adapter
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+    lateinit var date: String
     lateinit var auth: FirebaseAuth
 
 
@@ -55,17 +56,59 @@ class MainActivity : AppCompatActivity() {
             settings.javaScriptEnabled = true
             settings.safeBrowsingEnabled = true
         }
-
+        binding.datePickerActions.setOnClickListener {
+            binding.lyDate.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+            binding.rvRate2.visibility = View.GONE
+            selectedDate()
+        }
+        binding.btnSetDate.setOnClickListener {
+            showLoading(true)
+            mainViewModel.setDataWithDate(date)
+            Log.d("cek", date)
+            mainViewModel.getDatas().observe(this, Observer{ Data ->
+                if (Data != null) {
+                    adapter.setData(Data)
+                    showLoading(false)
+                }
+            })
+        }
 
     }
     private fun showLoading(state: Boolean){
         if(state) {
             binding.progressBar.visibility = View.VISIBLE
             binding.rvRate2.visibility = View.GONE
+            binding.lyDate.visibility = View.GONE
         } else {
             binding.progressBar.visibility = View.GONE
             binding.rvRate2.visibility = View.VISIBLE
+            binding.lyDate.visibility = View.GONE
         }
+    }
+
+    private fun selectedDate(){
+        val today = Calendar.getInstance()
+        if(!this::date.isInitialized){
+            val year = today.get(Calendar.YEAR)
+            val month = zeroValidate(today.get(Calendar.MONTH).toString())
+            val day = zeroValidate(today.get(Calendar.DAY_OF_MONTH).toString())
+            date = "$year-$month-$day"
+        }else {
+            binding.datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)
+            ) { view, year, month, day ->
+                val month = month + 1
+                var fixday = zeroValidate("$day")
+                var fixmonth = zeroValidate("$month")
+                date = "$year-$fixmonth-$fixday"
+                Log.d("get date", date)
+            }
+        }
+    }
+    private fun zeroValidate(string: String):String{
+        var fixstring = ""
+        if(string.length == 1) fixstring = "0${string}" else fixstring = string
+        return fixstring
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater

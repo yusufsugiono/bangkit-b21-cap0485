@@ -46,6 +46,45 @@ class MainViewModel:ViewModel() {
             }
         })
     }
+    fun setDataWithDate(date:String){
+        val datas = arrayListOf<Data>()
+        val client = AsyncHttpClient()
+        val url = "http://35.197.130.190/?date=${date}"
+        client.addHeader("User-Agent","request")
+        client.get(url, object: AsyncHttpResponseHandler(){
+            override fun onSuccess(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray) {
+                val result = String(responseBody)
+                try{
+                    val obj = JSONObject(result)
+                    val status = obj.getString("status")
+                    Log.d("Result", "Result = ${result} , with status = ${status}")
+                    val data = obj.getJSONArray("data")
+                    for(i in 0 until data.length()) {
+                        val item = data.getJSONObject(i)
+                        val kecamatan = item.getString("kecamatan")
+                        val tanggal = item.getString("tanggal")
+                        val prediksi = item.getString("prediksi")
+                        datas.add(
+                                Data(kecamatan = kecamatan,
+                                        tanggal = tanggal,
+                                        prediksi = prediksi
+                                )
+                        )
+                    }
+                    listDatas.postValue(datas)
+                }
+                catch (e: Exception) {
+                    Log.d("Exception", e.message.toString())
+                }
+            }
+            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
+                Log.d("onFailure", error.message.toString())
+                datas.add(Data(kecamatan = "", tanggal = "" , prediksi = "-"))
+                listDatas.postValue(datas)
+            }
+        })
+    }
+
     fun getDatas(): LiveData<ArrayList<Data>> {
         return listDatas
     }

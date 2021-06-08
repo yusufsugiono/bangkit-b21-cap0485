@@ -3,6 +3,7 @@
     <string name="location">Location</string>
     <string name="total_positive">Total Positive</string>
     <string name="date">Date</string>
+    <string name="pick_date">Pick Date</string>
 
     <string-array name="data_name">
         <item>Kemang</item>
