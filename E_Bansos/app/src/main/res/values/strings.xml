@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">E_Bansos</string>
+    <string name="location">Location</string>
+    <string name="total_positive">Total Positive</string>
+    <string name="date">Date</string>
 
     <string-array name="data_name">
         <item>Kemang</item>

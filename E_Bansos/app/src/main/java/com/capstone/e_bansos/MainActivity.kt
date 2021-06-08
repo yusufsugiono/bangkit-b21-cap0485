@@ -4,21 +4,28 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.e_bansos.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
+import com.loopj.android.http.AsyncHttpClient.log
+import kotlin.concurrent.schedule
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var adapter: ItemRate2Adapter
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var mainViewModel: MainViewModel
     lateinit var auth: FirebaseAuth
-    private val list = ArrayList<ListRate2>()
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -26,17 +33,21 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-
         setContentView(binding.root)
-
-        binding.rvRate2.setHasFixedSize(true)
-
-
+        showLoading(true)
+        adapter = ItemRate2Adapter()
+        adapter.notifyDataSetChanged()
+        binding.rvRate2.layoutManager = LinearLayoutManager(this)
+        binding.rvRate2.adapter = adapter
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+        mainViewModel.setData()
+        mainViewModel.getDatas().observe(this, Observer{ Data ->
+            if (Data != null) {
+                adapter.setData(Data)
+                showLoading(false)
+            }
+        })
         auth = FirebaseAuth.getInstance()
-
-        list.addAll(getListHeroes())
-        showRecyclerList()
-
 
         binding.webview.webViewClient = WebViewClient()
         binding.webview.apply {
@@ -47,7 +58,15 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
+    private fun showLoading(state: Boolean){
+        if(state) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.rvRate2.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.rvRate2.visibility = View.VISIBLE
+        }
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.option_menu,menu)
@@ -67,27 +86,4 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun showRecyclerList() {
-        binding.rvRate2.layoutManager = LinearLayoutManager(this)
-        val listHeroAdapter = ItemRate2Adapter(list)
-        binding.rvRate2.adapter = listHeroAdapter
-    }
-
-    fun getListHeroes(): ArrayList<ListRate2> {
-
-        val dataName = resources.getStringArray(R.array.data_name)
-        val dataDescription = resources.getStringArray(R.array.data_description)
-        val dataPhoto = resources.getStringArray(R.array.data_photo)
-        val listHero = ArrayList<ListRate2>()
-        for (position in dataName.indices) {
-            val hero = ListRate2(
-                dataName[position],
-                dataDescription[position],
-                dataPhoto[position]
-            )
-            listHero.add(hero)
-        }
-        return listHero
-
-    }
 }
