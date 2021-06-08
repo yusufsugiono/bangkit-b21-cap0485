@@ -10,5 +10,5 @@ Build with NodeJS and Hapi Framework
 * Run API server :
 > npm run start
 
-* Server will running on port 80
+* Server will running on port 5000
 * You can change the port number in `src/server.js`
