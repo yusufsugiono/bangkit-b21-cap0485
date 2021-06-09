@@ -57,13 +57,16 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/total_positive"
+                android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_datetime"
                 app:layout_constraintEnd_toStartOf="@+id/tv_datetime"
+                app:layout_constraintHorizontal_bias="0.432"
                 app:layout_constraintStart_toEndOf="@+id/tv_location"
-                app:layout_constraintTop_toTopOf="@+id/tv_datetime" />
+                app:layout_constraintTop_toTopOf="@+id/tv_datetime"
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:id="@+id/tv_datetime"
@@ -104,33 +107,39 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <LinearLayout
+            android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ly_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:visibility="visible">
+
             <DatePicker
-                android:layout_gravity="center"
                 android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:calendarViewShown="false"
                 android:datePickerMode="spinner"
                 android:spinnersShown="true"
-                android:calendarViewShown="false"
-                android:layout_marginBottom="15dp"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <Button
                 android:id="@+id/btnSetDate"
-                android:backgroundTint="@color/teal_200"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:backgroundTint="@color/teal_200"
+                android:text="@string/pick_date"
                 android:textSize="10sp"
-                android:text="@string/pick_date"/>
-        </LinearLayout>
+                app:layout_constraintEnd_toEndOf="@+id/datePicker"
+                app:layout_constraintStart_toStartOf="@+id/datePicker"
+                app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
         <ProgressBar
@@ -147,7 +156,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:background="#009688"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:listitem="@layout/item_rate1" />
 
 
